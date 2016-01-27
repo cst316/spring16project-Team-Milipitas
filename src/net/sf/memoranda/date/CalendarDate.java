@@ -6,7 +6,7 @@
  * @author Alex V. Alishevskikh, alex@openmechanics.net
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
-package net.sf.memoranda.date;
+package net.sf.memoranda.date;	//Possible place to add other packages here. HQPHAM, 01/27/2016
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -23,7 +23,7 @@ public class CalendarDate {
 
     private int _year;
     private int _month;
-    private int _day;
+    private int _day;	//Possible place to add changes here. HQPHAM, 01/27/2016
 
     public static Calendar dateToCalendar(Date date) {
         Calendar cal = Calendar.getInstance();
@@ -177,3 +177,4 @@ public class CalendarDate {
     
 
 }
+//Possible place to add other changes here. HQPHAM, 01/27/2016
