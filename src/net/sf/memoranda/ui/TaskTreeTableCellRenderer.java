@@ -22,7 +22,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeCellRenderer;
 
 /**
- * 
+ *
  */
 public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implements TreeCellRenderer, TableCellRenderer {
     static ImageIcon PR_HIGHEST_ICON = new ImageIcon(net.sf.memoranda.ui.AppFrame.class
@@ -45,6 +45,32 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
             .getResource("resources/icons/task_failed.png"));
     static ImageIcon TASK_COMPLETED_ICON = new ImageIcon(net.sf.memoranda.ui.AppFrame.class
             .getResource("resources/icons/task_completed.png"));
+    static Color[] colors =
+        {
+            Color.YELLOW,
+            Color.ORANGE,
+            Color.RED,
+            Color.BLUE,
+            Color.GREEN,
+            Color.CYAN,
+            Color.MAGENTA,
+            Color.BLACK,
+            Color.WHITE,
+            Color.PINK };
+    /*String[] colorLabels =
+        {
+            Local.getString("Yellow"),
+            Local.getString("Orange"),
+            Local.getString("Red"),
+            Local.getString("Blue"),
+            Local.getString("Green"),
+            Local.getString("Cyan"),
+            Local.getString("Magenta"),
+            Local.getString("Black"),
+            Local.getString("White"),
+            Local.getString("Pink"),
+            Local.getString("Custom")+"..."};*/
+
     // reusable cellrenderers
     JLabel label = new JLabel();
     //JLabel tree_label = new JLabel();
@@ -52,7 +78,7 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
     JPanel empty_panel = new JPanel();
     // get Task objects via table (maybe not most elegant solution)
     TaskTable table;
-    
+
     //SimpleDateFormat dateFormat = new SimpleDateFormat("d.M.yyyy");
     //  use localized date format, modified from default locale's short format if possible
     DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);//createModifiedShortFormat();
@@ -76,7 +102,7 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
             return empty_panel;
         if (!(value instanceof Task))
             return empty_panel;
-        Task t = (Task) value; 
+        Task t = (Task) value;
         setText(t.getText());
         setToolTipText(t.getDescription());
         setIcon(getStatusIcon(t));
@@ -86,13 +112,13 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
     }
 
     public Component getTableCellRendererComponent(JTable ignore, Object value, boolean selected,
-            boolean hasFocus, int row, int column) {        
+            boolean hasFocus, int row, int column) {
         Task t = (Task) table.getValueAt(row, 1);
         if (column == 1) {
             // this never happens because
             // column 1 contains TreeTableModel
             // and default renderer for it
-            // is JTree directly            
+            // is JTree directly
             return table.getTree();
         }
         // default values
@@ -135,13 +161,13 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
      * Component used to render tree cells in treetable
      */
     private Component getTaskTreeCellRenderer(Task t, boolean selected, boolean hasFocus) {
-        JLabel tree_label = new JLabel();       
+        JLabel tree_label = new JLabel();
         tree_label.setText(t.getText());
         // XXX [alexeya] Disabled coz a bug with tooltips in TreeTables:
         //tree_label.setToolTipText(t.getDescription());
         tree_label.setIcon(getStatusIcon(t));
         applyFont(t, tree_label);
-        return tree_label;        
+        return tree_label;
     }
 
     /**
@@ -257,6 +283,6 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         System.err.println("Problem finding priority icon");
         return null;
     }
-    
-    
+
+
 }

@@ -422,6 +422,7 @@ public class TaskImpl implements Task, Comparable {
      * @return color value
      */
     public int getColor() {
+        //return 9;
         return color;
     }
 
