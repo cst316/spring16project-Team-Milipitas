@@ -39,6 +39,8 @@ import javax.swing.event.ChangeListener;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.Local;
 import javax.swing.BoxLayout;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 /*$Id: EventDialog.java,v 1.28 2005/02/19 10:06:25 rawsushi Exp $*/
 public class EventDialog extends JDialog implements WindowListener {	
@@ -85,12 +87,10 @@ public class EventDialog extends JDialog implements WindowListener {
     private final JPanel middlePanel = new JPanel();
     private final JPanel emailPanel = new JPanel();
     private final JCheckBox emailToggle = new JCheckBox("Use Email");
-    private final JTextField emailInputField = new JTextField();
+    public final JTextField emailInputField = new JTextField();
     
     public EventDialog(Frame frame, String title) {
         super(frame, title, true);
-        emailInputField.setForeground(Color.BLACK);
-        emailInputField.setColumns(25);
         try {
             jbInit();
             pack();
@@ -399,8 +399,30 @@ public class EventDialog extends JDialog implements WindowListener {
         
         this.getContentPane().add(middlePanel, BorderLayout.WEST);
         
+        emailInputField.setToolTipText("Field to enter your email.");
+        emailInputField.setForeground(Color.BLACK);
+        emailInputField.setColumns(25);
         middlePanel.add(emailPanel);
         emailPanel.setLayout(new BoxLayout(emailPanel, BoxLayout.X_AXIS));
+        emailToggle.setSelected(true);
+        emailToggle.setToolTipText("Use this to toggle email functionality on and off");
+        emailToggle.addItemListener(new ItemListener() {
+        	public void itemStateChanged(ItemEvent ie) {
+        		switch (ie.getStateChange()) {
+	        		case 1: //if selected.
+	        			emailInputField.setVisible(true);
+	        			emailInputField.setEnabled(true);
+	        			break;
+	        		case 2: //if deselected.
+	        			emailInputField.setVisible(false);
+	        			emailInputField.setEnabled(false);
+	        			break;
+	    			default:
+	    				//empty
+	    				break;
+        		}
+        	}
+        });
         
         emailPanel.add(emailToggle);
         
