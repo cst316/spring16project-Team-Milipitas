@@ -341,13 +341,19 @@ public class EventsPanel extends JPanel {
     	//int hh = ((Date) dlg.timeSpin.getModel().getValue()).getHours();
     	//int mm = ((Date) dlg.timeSpin.getModel().getValue()).getMinutes();
     	String text = dlg.textField.getText();
-		
+		String email = dlg.emailInputField.getText();
 		CalendarDate eventCalendarDate = new CalendarDate(dlg.getEventDate());
 		
-    	if (dlg.noRepeatRB.isSelected())
-    		EventsManager.createEvent(eventCalendarDate, hh, mm, text);
-    	else {
-    		updateEvents(dlg,hh,mm,text);
+    	if (dlg.noRepeatRB.isSelected()) {
+    		if(dlg.useEmail == true)
+    		EventsManager.createEvent(eventCalendarDate, hh, mm, text, email);
+    		else
+    			EventsManager.createEvent(eventCalendarDate, hh, mm, text);
+    	} else {
+    		if(dlg.useEmail == true)
+    			updateEvents(dlg, hh, mm, text, email);
+    		else
+    			updateEvents(dlg,hh,mm,text);
     	}
     	saveEvents();
     }
@@ -390,6 +396,37 @@ public class EventsPanel extends JPanel {
         }
         EventsManager.createRepeatableEvent(rtype, sd, ed, period, hh, mm, text, dlg.workingDaysOnlyCB.isSelected());
     }
+    
+    private void updateEvents(EventDialog dlg, int hh, int mm, String text, String email) {
+    	int rtype;
+            int period;
+            CalendarDate sd = new CalendarDate((Date) dlg.startDate.getModel().getValue());
+            CalendarDate ed = null;
+            if (dlg.enableEndDateCB.isSelected())
+                ed = new CalendarDate((Date) dlg.endDate.getModel().getValue());
+            if (dlg.dailyRepeatRB.isSelected()) {
+                rtype = EventsManager.REPEAT_DAILY;
+                period = ((Integer) dlg.daySpin.getModel().getValue()).intValue();
+            }
+            else if (dlg.weeklyRepeatRB.isSelected()) {
+                rtype = EventsManager.REPEAT_WEEKLY;
+                period = dlg.weekdaysCB.getSelectedIndex() + 1;
+    	    if (Configuration.get("FIRST_DAY_OF_WEEK").equals("mon")) {
+    		if(period==7) period=1;
+    		else period++;
+    	    }
+            }
+    	else if (dlg.yearlyRepeatRB.isSelected()) {
+    	    rtype = EventsManager.REPEAT_YEARLY;
+    	    period = sd.getCalendar().get(Calendar.DAY_OF_YEAR);
+    	    if((sd.getYear() % 4) == 0 && sd.getCalendar().get(Calendar.DAY_OF_YEAR) > 60) period--;
+    	}
+            else {
+                rtype = EventsManager.REPEAT_MONTHLY;
+                period = ((Integer) dlg.dayOfMonthSpin.getModel().getValue()).intValue();
+            }
+            EventsManager.createRepeatableEvent(rtype, sd, ed, period, hh, mm, text, email, dlg.workingDaysOnlyCB.isSelected());
+        }
 
     void removeEventB_actionPerformed(ActionEvent e) {
 		String msg;

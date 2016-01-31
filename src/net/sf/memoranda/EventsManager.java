@@ -127,6 +127,28 @@ public class EventsManager {
 		d.getElement().appendChild(el);
 		return new EventImpl(el);
 	}
+	
+	public static Event createEvent(
+			CalendarDate date,
+			int hh,
+			int mm,
+			String text,
+			String email) {
+		
+		Element e1 = new Element("event");
+		e1.addAttribute(new Attribute("id", Util.generateId()));
+		e1.addAttribute(new Attribute("hour", String.valueOf(hh)));
+		e1.addAttribute(new Attribute("min", String.valueOf(mm)));
+		e1.addAttribute(new Attribute("email", email));
+		e1.appendChild(text);
+		
+		Day d = getDay(date);
+		if(d == null)
+			d = createDay(date);
+		d.getElement().appendChild(e1);
+		return new EventImpl(e1);
+		
+	}
 
 	public static Event createRepeatableEvent(
 		int type,
@@ -157,6 +179,38 @@ public class EventsManager {
 		rep.appendChild(el);
 		return new EventImpl(el);
 	}
+	
+	public static Event createRepeatableEvent(
+			int type,
+			CalendarDate startDate,
+			CalendarDate endDate,
+			int period,
+			int hh,
+			int mm,
+			String text, 
+			String email,
+			boolean workDays) {
+			Element el = new Element("event");
+			Element rep = _root.getFirstChildElement("repeatable");
+			if (rep == null) {
+				rep = new Element("repeatable");
+				_root.appendChild(rep);
+			}
+			el.addAttribute(new Attribute("repeat-type", String.valueOf(type)));
+			el.addAttribute(new Attribute("id", Util.generateId()));
+			el.addAttribute(new Attribute("hour", String.valueOf(hh)));
+			el.addAttribute(new Attribute("min", String.valueOf(mm)));
+			el.addAttribute(new Attribute("startDate", startDate.toString()));
+			el.addAttribute(new Attribute("email", email));
+			if (endDate != null)
+				el.addAttribute(new Attribute("endDate", endDate.toString()));
+			el.addAttribute(new Attribute("period", String.valueOf(period)));
+			// new attribute for wrkin days - ivanrise
+			el.addAttribute(new Attribute("workingDays",String.valueOf(workDays)));
+			el.appendChild(text);
+			rep.appendChild(el);
+			return new EventImpl(el);
+		}
 
 	public static Collection getRepeatableEvents() {
 		Vector v = new Vector();

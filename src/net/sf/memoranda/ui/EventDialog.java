@@ -45,6 +45,7 @@ import java.awt.event.ItemEvent;
 /*$Id: EventDialog.java,v 1.28 2005/02/19 10:06:25 rawsushi Exp $*/
 public class EventDialog extends JDialog implements WindowListener {	
     public boolean CANCELLED = false;
+    public boolean useEmail = true;
     boolean ignoreStartChanged = false;
     boolean ignoreEndChanged = false;
     JPanel topPanel = new JPanel(new BorderLayout());
@@ -412,10 +413,12 @@ public class EventDialog extends JDialog implements WindowListener {
 	        		case 1: //if selected.
 	        			emailInputField.setVisible(true);
 	        			emailInputField.setEnabled(true);
+	        			useEmail = true;
 	        			break;
 	        		case 2: //if deselected.
 	        			emailInputField.setVisible(false);
 	        			emailInputField.setEnabled(false);
+	        			useEmail = false;
 	        			break;
 	    			default:
 	    				//empty
