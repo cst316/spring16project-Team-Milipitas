@@ -269,8 +269,6 @@ public class TaskTable extends JTable {
             TableCellRenderer {
         /** Last table/tree row asked to renderer. */
         protected int visibleRow;
-        private int color=0;
-        private DefaultTreeCellRenderer _dtcr=null;
 
         public TreeTableCellRenderer(TreeModel model) {
             super(model);
@@ -292,7 +290,6 @@ public class TaskTable extends JTable {
             TreeCellRenderer tcr = getCellRenderer();
             if (tcr instanceof DefaultTreeCellRenderer) {
                 DefaultTreeCellRenderer dtcr = ((DefaultTreeCellRenderer) tcr);
-                _dtcr = dtcr;
 
 				dtcr.setBorderSelectionColor(null);
                 dtcr.setTextSelectionColor(UIManager
@@ -342,16 +339,13 @@ public class TaskTable extends JTable {
                 return null;
 
             Task t = (Task) value;
-            color = t.getColor();
+            int color = t.getColor();
 
-            if (isSelected)
+            /*if (isSelected) {
                 setBackground(table.getSelectionBackground());
-            else if (color != -1) {
+            } else */if (color != -1) {
                 setBackground(colors[color]);
-                if (_dtcr != null) {
-                    _dtcr.setBackgroundSelectionColor(colors[color]);
-                    _dtcr.setBackgroundNonSelectionColor(colors[color]);
-                }
+
             }
             else {
                 setBackground(table.getBackground());
@@ -501,6 +495,9 @@ public class TaskTable extends JTable {
 	class ListSelectionHandler implements ListSelectionListener {
             public void valueChanged(ListSelectionEvent e) {
                 updateSelectedPathsFromSelectedRows();
+                //Object o = e.getSource();
+                //System.out.println(o.getClass());
+                //System.out.println("Inside the ListSelectionHandler");
             }
         }
 	} // }}}

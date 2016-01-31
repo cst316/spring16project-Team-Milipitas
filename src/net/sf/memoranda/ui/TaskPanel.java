@@ -457,6 +457,11 @@ public class TaskPanel extends JPanel {
         dlg.startDate.getModel().setValue(t.getStartDate().getDate());
         dlg.endDate.getModel().setValue(t.getEndDate().getDate());
         dlg.priorityCB.setSelectedIndex(t.getPriority());
+        if (t.getColor() == -1) {
+            dlg.taskColor.setSelectedIndex(10);
+        } else {
+            dlg.taskColor.setSelectedIndex(t.getColor());
+        }
         dlg.effortField.setText(Util.getHoursFromMillis(t.getEffort()));
 	if((t.getStartDate().getDate()).after(t.getEndDate().getDate()))
 		dlg.chkEndDate.setSelected(false);
@@ -479,6 +484,11 @@ public class TaskPanel extends JPanel {
         t.setText(dlg.todoField.getText());
         t.setDescription(dlg.descriptionField.getText());
         t.setPriority(dlg.priorityCB.getSelectedIndex());
+        if (dlg.taskColor.getSelectedIndex() == 10) {
+            t.setColor(-1);
+        } else {
+            t.setColor(dlg.taskColor.getSelectedIndex());
+        }
         t.setEffort(Util.getMillisFromHours(dlg.effortField.getText()));
         t.setProgress(((Integer)dlg.progress.getValue()).intValue());
 
