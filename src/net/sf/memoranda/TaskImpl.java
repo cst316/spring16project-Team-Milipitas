@@ -27,7 +27,6 @@ public class TaskImpl implements Task, Comparable {
 
     private Element _element = null;
     private TaskList _tl = null;
-    private int color;
 
     /*
         Color[] colors =
@@ -62,7 +61,6 @@ public class TaskImpl implements Task, Comparable {
     public TaskImpl(Element taskElement, TaskList tl) {
         _element = taskElement;
         _tl = tl;
-        color = -1;
     }
 
     public Element getContent() {
@@ -422,8 +420,11 @@ public class TaskImpl implements Task, Comparable {
      * @return color value
      */
     public int getColor() {
-        //return 9;
-        return color;
+        try {
+            return new Integer(_element.getAttribute("taskColor").getValue());
+        } catch (Exception e) {
+            return -1;
+        }
     }
 
     /**
@@ -431,6 +432,8 @@ public class TaskImpl implements Task, Comparable {
      * @param  c the color to set to
      */
     public void setColor(int c) {
-        color = c;
+        if (c >= -1) {
+            setAttr("taskColor", ""+c);
+        }
     }
 }

@@ -59,12 +59,12 @@ public class TaskDialog extends JDialog {
 //    Border border6;
     JPanel jPanel2 = new JPanel(new GridLayout(3, 2));
     JTextField todoField = new JTextField();
-    
+
     // added by rawsushi
     JTextField effortField = new JTextField();
     JTextArea descriptionField = new JTextArea();
     JScrollPane descriptionScrollPane = new JScrollPane(descriptionField);
-    
+
 //    Border border7;
     Border border8;
     CalendarFrame startCalFrame = new CalendarFrame();
@@ -88,43 +88,62 @@ public class TaskDialog extends JDialog {
     JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JPanel jPanelEffort = new JPanel(new FlowLayout(FlowLayout.LEFT));
 //    JPanel jPanelNotes = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    
+
     JButton setNotifB = new JButton();
     JComboBox priorityCB = new JComboBox(priority);
     JLabel jLabel7 = new JLabel();
+
+    //color setting
+    String[] colors = {
+        Local.getString("Yellow"),
+        Local.getString("Orange"),
+        Local.getString("Red"),
+        Local.getString("Blue"),
+        Local.getString("Green"),
+        Local.getString("Cyan"),
+        Local.getString("Magenta"),
+        Local.getString("Black"),
+        Local.getString("White"),
+        Local.getString("Pink"),
+        Local.getString("None")
+    };
+    JComboBox taskColor = new JComboBox(colors);
+    JLabel jLabel8 = new JLabel();
+
+
     // added by rawsushi
     JLabel jLabelEffort = new JLabel();
     JLabel jLabelDescription = new JLabel();
 	JCheckBox chkEndDate = new JCheckBox();
-	
+
 	JPanel jPanelProgress = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 	JLabel jLabelProgress = new JLabel();
 	JSpinner progress = new JSpinner(new SpinnerNumberModel(0, 0, 100, 5));
-	
+
 	//Forbid to set dates outside the bounds
 	CalendarDate startDateMin = CurrentProject.get().getStartDate();
 	CalendarDate startDateMax = CurrentProject.get().getEndDate();
 	CalendarDate endDateMin = startDateMin;
 	CalendarDate endDateMax = startDateMax;
-    
+
     public TaskDialog(Frame frame, String title) {
         super(frame, title, true);
         try {
-            jbInit();            
+            jbInit();
             pack();
         }
         catch (Exception ex) {
             new ExceptionDialog(ex);
         }
     }
-    
+
     void jbInit() throws Exception {
 	this.setResizable(false);
 	this.setSize(new Dimension(430,300));
         border1 = BorderFactory.createEmptyBorder(5, 5, 5, 5);
-        border2 = BorderFactory.createEtchedBorder(Color.white, 
+        border2 = BorderFactory.createEtchedBorder(Color.white,
             new Color(142, 142, 142));
-        border3 = new TitledBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0), 
+        border3 = new TitledBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0),
         Local.getString("To Do"), TitledBorder.LEFT, TitledBorder.BELOW_TOP);
         border4 = BorderFactory.createEmptyBorder(0, 5, 0, 5);
 //        border5 = BorderFactory.createEmptyBorder();
@@ -132,7 +151,7 @@ public class TaskDialog extends JDialog {
 //            Color.white, Color.white, new Color(178, 178, 178),
 //            new Color(124, 124, 124));
 //        border7 = BorderFactory.createLineBorder(Color.white, 2);
-        border8 = BorderFactory.createEtchedBorder(Color.white, 
+        border8 = BorderFactory.createEtchedBorder(Color.white,
             new Color(178, 178, 178));
         cancelB.setMaximumSize(new Dimension(100, 26));
         cancelB.setMinimumSize(new Dimension(100, 26));
@@ -146,7 +165,7 @@ public class TaskDialog extends JDialog {
 
         startDate = new JSpinner(new SpinnerDateModel(new Date(),null,null,Calendar.DAY_OF_WEEK));
         endDate = new JSpinner(new SpinnerDateModel(new Date(),null,null,Calendar.DAY_OF_WEEK));
-		
+
         chkEndDate.setSelected(false);
 		chkEndDate_actionPerformed(null);
 		chkEndDate.addActionListener(new java.awt.event.ActionListener() {
@@ -163,7 +182,7 @@ public class TaskDialog extends JDialog {
                 okB_actionPerformed(e);
             }
         });
-        
+
         this.getRootPane().setDefaultButton(okB);
         mPanel.setBorder(border1);
         areaPanel.setBorder(border2);
@@ -176,17 +195,17 @@ public class TaskDialog extends JDialog {
         header.setText(Local.getString("To do"));
         header.setIcon(new ImageIcon(net.sf.memoranda.ui.TaskDialog.class.getResource(
             "resources/icons/task48.png")));
-        
+
         GridBagLayout gbLayout = (GridBagLayout) jPanel8.getLayout();
         jPanel8.setBorder(border3);
-				
+
         todoField.setBorder(border8);
         todoField.setPreferredSize(new Dimension(375, 24));
         GridBagConstraints gbCon = new GridBagConstraints();
         gbCon.gridwidth = GridBagConstraints.REMAINDER;
         gbCon.weighty = 1;
         gbLayout.setConstraints(todoField,gbCon);
-        
+
         jLabelDescription.setMaximumSize(new Dimension(100, 16));
         jLabelDescription.setMinimumSize(new Dimension(60, 16));
         jLabelDescription.setText(Local.getString("Description"));
@@ -213,7 +232,7 @@ public class TaskDialog extends JDialog {
         effortField.setPreferredSize(new Dimension(30, 24));
 
         startDate.setBorder(border8);
-        startDate.setPreferredSize(new Dimension(80, 24));                
+        startDate.setPreferredSize(new Dimension(80, 24));
 		SimpleDateFormat sdf = new SimpleDateFormat();
 		sdf = (SimpleDateFormat)DateFormat.getDateInstance(DateFormat.SHORT);
 		// //Added by (jcscoobyrs) on 14-Nov-2003 at 10:45:16 PM
@@ -267,21 +286,21 @@ public class TaskDialog extends JDialog {
         jLabel2.setText(Local.getString("End date"));
         endDate.setBorder(border8);
         endDate.setPreferredSize(new Dimension(80, 24));
-        
+
 		endDate.setEditor(new JSpinner.DateEditor(endDate, sdf.toPattern())); //Added by (jcscoobyrs) on
 		//14-Nov-2003 at 10:45:16PM
-        
+
         endDate.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
             	// it's an ugly hack so that the spinner can increase day by day
             	SpinnerDateModel sdm = new SpinnerDateModel((Date)endDate.getModel().getValue(),null,null,Calendar.DAY_OF_WEEK);
             	endDate.setModel(sdm);
-            	
+
                 if (ignoreEndChanged)
                     return;
                 ignoreEndChanged = true;
                 Date sd = (Date) startDate.getModel().getValue();
-                Date ed = (Date) endDate.getModel().getValue();				
+                Date ed = (Date) endDate.getModel().getValue();
 				if (ed.before(sd)) {
                     endDate.getModel().setValue(ed);
                     ed = sd;
@@ -308,7 +327,7 @@ public class TaskDialog extends JDialog {
                 setEndDateB_actionPerformed(e);
             }
         });
-        
+
         setNotifB.setText(Local.getString("Set notification"));
         setNotifB.setIcon(
             new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/notify.png")));
@@ -322,7 +341,13 @@ public class TaskDialog extends JDialog {
         //jLabel7.setPreferredSize(new Dimension(60, 16));
         jLabel7.setText(Local.getString("Priority"));
 
+        jLabel8.setMaximumSize(new Dimension(100, 16));
+        jLabel8.setMinimumSize(new Dimension(60, 16));
+        //jLabel8.setPreferredSize(new Dimension(60, 16));
+        jLabel8.setText(Local.getString("Color"));
+
         priorityCB.setFont(new java.awt.Font("Dialog", 0, 11));
+        taskColor.setFont(new java.awt.Font("Dialog", 0, 11));
         jPanel4.add(jLabel7, null);
         getContentPane().add(mPanel);
         mPanel.add(areaPanel, BorderLayout.CENTER);
@@ -352,16 +377,19 @@ public class TaskDialog extends JDialog {
 
         jPanel2.add(jPanel4, null);
         jPanel4.add(priorityCB, null);
+        jPanel4.add(jLabel8, null);
+        jPanel4.add(taskColor, null);
         jPanel2.add(jPanel3, null);
-        
+
         jPanel3.add(setNotifB, null);
-        
+
         jLabelProgress.setText(Local.getString("Progress"));
         jPanelProgress.add(jLabelProgress, null);
         jPanelProgress.add(progress, null);
         jPanel2.add(jPanelProgress);
-        
+
         priorityCB.setSelectedItem(Local.getString("Normal"));
+        taskColor.setSelectedItem(Local.getString("None"));
         startCalFrame.cal.addSelectionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (ignoreStartChanged)
@@ -369,7 +397,7 @@ public class TaskDialog extends JDialog {
                 startDate.getModel().setValue(startCalFrame.cal.get().getCalendar().getTime());
             }
         });
-        
+
         endCalFrame.cal.addSelectionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (ignoreEndChanged)
@@ -382,22 +410,22 @@ public class TaskDialog extends JDialog {
 	public void setStartDate(CalendarDate d) {
 		this.startDate.getModel().setValue(d.getDate());
 	}
-	
-	public void setEndDate(CalendarDate d) {		
-		if (d != null) 
+
+	public void setEndDate(CalendarDate d) {
+		if (d != null)
 			this.endDate.getModel().setValue(d.getDate());
 	}
-	
+
 	public void setStartDateLimit(CalendarDate min, CalendarDate max) {
 		this.startDateMin = min;
 		this.startDateMax = max;
 	}
-	
+
 	public void setEndDateLimit(CalendarDate min, CalendarDate max) {
 		this.endDateMin = min;
 		this.endDateMax = max;
 	}
-	
+
     void okB_actionPerformed(ActionEvent e) {
 	CANCELLED = false;
         this.dispose();
@@ -406,7 +434,7 @@ public class TaskDialog extends JDialog {
     void cancelB_actionPerformed(ActionEvent e) {
         this.dispose();
     }
-	
+
 	void chkEndDate_actionPerformed(ActionEvent e) {
 		endDate.setEnabled(chkEndDate.isSelected());
 		setEndDateB.setEnabled(chkEndDate.isSelected());
@@ -434,9 +462,9 @@ public class TaskDialog extends JDialog {
         this.getLayeredPane().add(endCalFrame);
         endCalFrame.show();
     }
-    
+
     void setNotifB_actionPerformed(ActionEvent e) {
-    	((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.eventsPanel.newEventB_actionPerformed(e, 
+    	((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.eventsPanel.newEventB_actionPerformed(e,
 			this.todoField.getText(), (Date)startDate.getModel().getValue(),(Date)endDate.getModel().getValue());
     }
 
