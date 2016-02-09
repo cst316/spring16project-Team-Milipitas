@@ -193,8 +193,8 @@ public class EventImpl implements Event, Comparable {
     public boolean sendEmail() {
         String destEmail = _elem.getAttribute("email").getValue();
 
-        //System.out.println("SEND EMAIL HAS BEEN CALLED: currently deactivated");
-        //destEmail = null;
+        System.out.println("SEND EMAIL HAS BEEN CALLED: currently deactivated");
+        destEmail = null;
 
         if (destEmail != null) {
             String title, message;

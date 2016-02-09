@@ -307,6 +307,7 @@ public class EventsPanel extends JPanel {
             EventsManager.createEvent(CurrentDate.get(), hh, mm, text, email);
             else
                 EventsManager.createEvent(CurrentDate.get(), hh, mm, text, note);
+                EventsManager.createEvent(CurrentDate.get(), hh, mm, text);
         } else {
             if(dlg.useEmail == true)
                 updateEvents(dlg, hh, mm, text, email);
