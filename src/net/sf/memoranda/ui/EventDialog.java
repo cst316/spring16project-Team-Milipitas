@@ -93,7 +93,7 @@ public class EventDialog extends JDialog implements WindowListener {
     private final JCheckBox emailToggle = new JCheckBox("Use Email");
     public final JTextField emailInputField = new JTextField();
     private final JLabel lblNote = new JLabel("Note:");
-    private final JTextField noteField = new JTextField();
+    public final JTextField noteField = new JTextField();
     
     public EventDialog(Frame frame, String title) {
         super(frame, title, true);
