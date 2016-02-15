@@ -2,7 +2,7 @@
  * EventImpl.java
  * Created on 08.03.2003, 13:20:13 Alex
  * Package: net.sf.memoranda
- * 
+ *
  * @author Alex V. Alishevskikh, alex@openmechanics.net
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
@@ -17,11 +17,11 @@ import nu.xom.Attribute;
 import nu.xom.Element;
 
 /**
- * 
+ *
  */
 /*$Id: EventImpl.java,v 1.9 2004/10/06 16:00:11 ivanrise Exp $*/
 public class EventImpl implements Event, Comparable {
-    
+
     private Element _elem = null;
 
     /**
@@ -31,7 +31,7 @@ public class EventImpl implements Event, Comparable {
         _elem = elem;
     }
 
-   
+
     /**
      * @see net.sf.memoranda.Event#getHour()
      */
@@ -45,19 +45,19 @@ public class EventImpl implements Event, Comparable {
     public int getMinute() {
         return new Integer(_elem.getAttribute("min").getValue()).intValue();
     }
-    
+
     public String getTimeString() {
         return Local.getTimeString(getHour(), getMinute());
     }
-        
-  
+
+
     /**
      * @see net.sf.memoranda.Event#getText()
      */
     public String getText() {
         return _elem.getValue();
     }
-    
+
     public String getEmail() {
     	return _elem.getAttribute("email").getValue().toString();
     }
@@ -134,7 +134,7 @@ public class EventImpl implements Event, Comparable {
 		d = calendar.getTime(); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
         return d;
     }
-	
+
 	/**
      * @see net.sf.memoranda.Event#getWorkinDays()
      */
@@ -143,10 +143,50 @@ public class EventImpl implements Event, Comparable {
         if (a != null && a.getValue().equals("true")) return true;
         return false;
 	}
-	
+
 	public int compareTo(Object o) {
 		Event event = (Event) o;
 		return (getHour() * 60 + getMinute()) - (event.getHour() * 60 + event.getMinute());
 	}
 
+    /**
+     * This function returns the email value
+     * @return email
+     */
+    public String getEmailAddress() {
+        try {
+            return new String(_elem.getAttribute("email").getValue());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
+     * This sends an email about the event to the email address
+     * @return false for failure, true for success
+     */
+    public boolean sendEmail() {
+        String destEmail = _elem.getAttribute("email").getValue();
+
+        if (destEmail != null) {
+            String title, message;
+
+
+            //need to actually populate this with info for the email
+            title = "Reminder for "+getId()+" on "+getStartDate().toString();
+            message = "This event starts at "+getTime().toString()+" and ends on "+
+                        getEndDate().toString()+". Here is some information about the event:\n"+
+                        getText();
+
+            try {
+              GoogleMail.Send("cst316milpitas", "JMorcL.}eYBGW9M", destEmail, title, message);
+
+              return true;
+            } catch (Exception e) {
+              e.printStackTrace();
+            }
+        }
+
+        return false;
+    }
 }
