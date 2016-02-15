@@ -359,7 +359,6 @@ public class EventsPanel extends JPanel {
 		
 		CalendarDate eventCalendarDate = new CalendarDate(dlg.getEventDate());
 
-
     	if (dlg.noRepeatRB.isSelected()) {
     		if(dlg.useEmail == true)
                     EventsManager.createEvent(eventCalendarDate, hh, mm, text, email, note);

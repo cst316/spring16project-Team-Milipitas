@@ -192,20 +192,30 @@ public class EventImpl implements Event, Comparable {
      */
     public boolean sendEmail() {
         String destEmail = _elem.getAttribute("email").getValue();
+        //System.out.println("TEST");
 
         //System.out.println("SEND EMAIL HAS BEEN CALLED: currently deactivated");
         //destEmail = null;
 
         if (destEmail != null) {
             String title, message;
+            message = "";
 
-
-            title = "Reminder for "+getText()+" on "+getStartDate().toString();
-            message = "This event starts at "+getTime().toString();
+            title = "Reminder for "+getText();
+            if (getStartDate() != null) {
+                title += " on "+getStartDate().toString();
+            }
+            if (getTime() != null) {
+                message += "This event starts at "+getTime().toString();
+            }
             if (getEndDate() != null) {
                 message += " and ends on "+getEndDate().toString();
             }
-            message += ".\n\nHere is the event id:\n"+getId();
+            if (getId() != null) {
+                message += ".\n\nHere is the event id:\n"+getId();
+            } else {
+                message += ".\n\n";
+            }
 
             try {
               GoogleMail.Send("cst316milpitas", "JMorcL.}eYBGW9M", destEmail, title, message);
