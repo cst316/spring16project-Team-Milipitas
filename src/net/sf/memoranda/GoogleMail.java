@@ -16,9 +16,13 @@ try {
 
 */
 
-
-
-
+/*
+  File:				GoogleMail.java
+  Author:			doraemon
+  Date:				02/12/2016
+  
+  Description:		Send email using GMail SMTP server.
+*/
 
 import com.sun.mail.smtp.SMTPTransport;
 import java.security.Security;
@@ -35,6 +39,11 @@ import javax.mail.internet.MimeMessage;
  *
  * @author doraemon
  */
+ /**
+  Class:			GoogleMail
+  
+  Description:		Send email using GMail SMTP server.
+*/
 public class GoogleMail {
     private GoogleMail() {
     }
@@ -113,3 +122,4 @@ public class GoogleMail {
         t.close();
     }
 }
+
