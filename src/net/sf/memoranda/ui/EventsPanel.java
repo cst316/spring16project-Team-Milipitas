@@ -360,10 +360,9 @@ public class EventsPanel extends JPanel {
 		String email = dlg.emailInputField.getText();
 		CalendarDate eventCalendarDate = new CalendarDate(dlg.getEventDate());
 
-
     	if (dlg.noRepeatRB.isSelected()) {
     		if(dlg.useEmail == true)
-    		EventsManager.createEvent(eventCalendarDate, hh, mm, text, email);
+    		  EventsManager.createEvent(eventCalendarDate, hh, mm, text, email);
     		else
     			EventsManager.createEvent(eventCalendarDate, hh, mm, text);
     	} else {
