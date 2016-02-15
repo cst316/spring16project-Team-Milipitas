@@ -11,7 +11,7 @@ import org.junit.Test;
 import net.sf.memoranda.date.CalendarDate;
 
 public class CalendarDateTest {
-	
+
 	private CalendarDate cd1;
 	private CalendarDate cd2;
 	private CalendarDate cd3;
@@ -40,13 +40,13 @@ public class CalendarDateTest {
 		assertTrue(cd1.equals(cd3));
 		assertFalse(cd1.equals(cd2));
 	}
-	
+
 	@Test
 	public void beforeTest() {
 		assertTrue(cd1.before(cd2));
-		assertTrue(cd2.before(cd1)); //Pass with assertFalse
+		assertFalse(cd2.before(cd1)); //Pass with assertFalse
 	}
-	
+
 	@Test
 	public void afterTest() {
 		assertFalse(cd1.after(cd2));
