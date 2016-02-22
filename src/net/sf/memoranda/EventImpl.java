@@ -61,6 +61,15 @@ public class EventImpl implements Event, Comparable {
     public String getEmail() {
     	return _elem.getAttribute("email").getValue().toString();
     }
+    
+    /**
+     * @return The note added to the 
+     */
+    @Override
+	public String getNote() {
+		// TODO Auto-generated method stub
+		return _elem.getAttribute("note").getValue().toString();
+	}
 
     /**
      * @see net.sf.memoranda.Event#getContent()

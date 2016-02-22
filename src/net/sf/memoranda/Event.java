@@ -30,6 +30,8 @@ public interface Event {
     
     String getText();
     
+    String getNote();
+    
     nu.xom.Element getContent();
     
     int getRepeat();
