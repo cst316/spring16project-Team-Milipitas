@@ -23,6 +23,7 @@ try {
   
   Description:		Send email using GMail SMTP server.
 */
+package net.sf.memoranda;
 
 import com.sun.mail.smtp.SMTPTransport;
 import java.security.Security;

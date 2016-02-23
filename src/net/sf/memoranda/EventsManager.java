@@ -115,11 +115,13 @@ public class EventsManager {
 		CalendarDate date,
 		int hh,
 		int mm,
-		String text) {
+		String text,
+		String note) {
 		Element el = new Element("event");
 		el.addAttribute(new Attribute("id", Util.generateId()));
 		el.addAttribute(new Attribute("hour", String.valueOf(hh)));
 		el.addAttribute(new Attribute("min", String.valueOf(mm)));
+		el.addAttribute(new Attribute("note", note));
 		el.appendChild(text);
 		Day d = getDay(date);
 		if (d == null)
@@ -133,20 +135,22 @@ public class EventsManager {
 			int hh,
 			int mm,
 			String text,
-			String email) {
+			String email,
+			String note) {
 		
-		Element e1 = new Element("event");
-		e1.addAttribute(new Attribute("id", Util.generateId()));
-		e1.addAttribute(new Attribute("hour", String.valueOf(hh)));
-		e1.addAttribute(new Attribute("min", String.valueOf(mm)));
-		e1.addAttribute(new Attribute("email", email));
-		e1.appendChild(text);
+		Element el = new Element("event");
+		el.addAttribute(new Attribute("id", Util.generateId()));
+		el.addAttribute(new Attribute("hour", String.valueOf(hh)));
+		el.addAttribute(new Attribute("min", String.valueOf(mm)));
+		el.addAttribute(new Attribute("email", email));
+		el.addAttribute(new Attribute("note", note.toString()));
+		el.appendChild(text);
 		
 		Day d = getDay(date);
 		if(d == null)
 			d = createDay(date);
-		d.getElement().appendChild(e1);
-		return new EventImpl(e1);
+		d.getElement().appendChild(el);
+		return new EventImpl(el);
 		
 	}
 
@@ -158,6 +162,7 @@ public class EventsManager {
 		int hh,
 		int mm,
 		String text,
+		String note,
 		boolean workDays) {
 		Element el = new Element("event");
 		Element rep = _root.getFirstChildElement("repeatable");
@@ -170,6 +175,7 @@ public class EventsManager {
 		el.addAttribute(new Attribute("hour", String.valueOf(hh)));
 		el.addAttribute(new Attribute("min", String.valueOf(mm)));
 		el.addAttribute(new Attribute("startDate", startDate.toString()));
+		el.addAttribute(new Attribute("note", note.toString()));
 		if (endDate != null)
 			el.addAttribute(new Attribute("endDate", endDate.toString()));
 		el.addAttribute(new Attribute("period", String.valueOf(period)));
@@ -189,6 +195,7 @@ public class EventsManager {
 			int mm,
 			String text, 
 			String email,
+			String note,
 			boolean workDays) {
 			Element el = new Element("event");
 			Element rep = _root.getFirstChildElement("repeatable");
@@ -202,6 +209,7 @@ public class EventsManager {
 			el.addAttribute(new Attribute("min", String.valueOf(mm)));
 			el.addAttribute(new Attribute("startDate", startDate.toString()));
 			el.addAttribute(new Attribute("email", email));
+			el.addAttribute(new Attribute("note", note.toString()));
 			if (endDate != null)
 				el.addAttribute(new Attribute("endDate", endDate.toString()));
 			el.addAttribute(new Attribute("period", String.valueOf(period)));
