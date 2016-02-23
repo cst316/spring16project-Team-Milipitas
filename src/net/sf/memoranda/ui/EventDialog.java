@@ -45,7 +45,7 @@ import java.awt.event.ItemEvent;
 import java.awt.GridLayout;
 
 /*$Id: EventDialog.java,v 1.28 2005/02/19 10:06:25 rawsushi Exp $*/
-public class EventDialog extends JDialog implements WindowListener {	
+public class EventDialog extends JDialog implements WindowListener {
     public boolean CANCELLED = false;
     public boolean useEmail = true;
     boolean ignoreStartChanged = false;
@@ -86,11 +86,11 @@ public class EventDialog extends JDialog implements WindowListener {
     JButton cancelB = new JButton();
     CalendarFrame endCalFrame = new CalendarFrame();
     CalendarFrame startCalFrame = new CalendarFrame();
-    
+
     private Date eventDate;
     private final JPanel middlePanel = new JPanel();
     private final JPanel emailPanel = new JPanel();
-    private final JCheckBox emailToggle = new JCheckBox("Use Email");
+    public final JCheckBox emailToggle = new JCheckBox("Send Email");
     public final JTextField emailInputField = new JTextField();
     private final JLabel lblNote = new JLabel("Note:");
     public final JTextField noteField = new JTextField();
@@ -118,7 +118,7 @@ public class EventDialog extends JDialog implements WindowListener {
         header.setIcon(new ImageIcon(net.sf.memoranda.ui.EventDialog.class.getResource(
             "resources/icons/event48.png")));
         headerPanel.add(header);
-        
+
         // Build eventPanel
         lblTime.setText(Local.getString("Time"));
         lblTime.setMinimumSize(new Dimension(60, 24));
@@ -150,7 +150,7 @@ public class EventDialog extends JDialog implements WindowListener {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         eventPanel.add(textField, gbc);
-        
+
         // Build RepeatPanel
         repeatBorder = new TitledBorder(BorderFactory.createLineBorder(
         Color.gray, 1), Local.getString("Repeat"));
@@ -219,12 +219,12 @@ public class EventDialog extends JDialog implements WindowListener {
             }
         });
         startDate.setPreferredSize(new Dimension(80, 24));
-        
+
         //Added by (jcscoobyrs) on 12-Nov-2003 at 15:34:27 PM
 		//---------------------------------------------------
 		SimpleDateFormat sdf = new SimpleDateFormat();
 		sdf = (SimpleDateFormat)DateFormat.getDateInstance(DateFormat.SHORT);
-        startDate.setEditor(new JSpinner.DateEditor(startDate, 
+        startDate.setEditor(new JSpinner.DateEditor(startDate,
         	sdf.toPattern()));
         //---------------------------------------------------
         gbc = new GridBagConstraints();
@@ -365,13 +365,13 @@ public class EventDialog extends JDialog implements WindowListener {
 		gbc.insets = new Insets(5, 5, 5, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		repeatPanel.add(yearlyRepeatRB, gbc);
-        
+
         repeatRBGroup.add(noRepeatRB);
         repeatRBGroup.add(dailyRepeatRB);
         repeatRBGroup.add(weeklyRepeatRB);
         repeatRBGroup.add(monthlyRepeatRB);
         repeatRBGroup.add(yearlyRepeatRB);
-        
+
         // Build ButtonsPanel
         okB.setMaximumSize(new Dimension(100, 26));
         okB.setMinimumSize(new Dimension(100, 26));
@@ -394,7 +394,7 @@ public class EventDialog extends JDialog implements WindowListener {
         cancelB.setMaximumSize(new Dimension(100, 26));
         buttonsPanel.add(okB);
         buttonsPanel.add(cancelB);
-        
+
         // Finally build the Dialog
         topPanel.add(headerPanel, BorderLayout.NORTH);
         topPanel.add(eventPanel, BorderLayout.SOUTH);
@@ -402,7 +402,7 @@ public class EventDialog extends JDialog implements WindowListener {
         bottomPanel.add(buttonsPanel, BorderLayout.SOUTH);
         this.getContentPane().add(topPanel, BorderLayout.NORTH);
         this.getContentPane().add(bottomPanel, BorderLayout.SOUTH);
-        
+
         this.getContentPane().add(middlePanel, BorderLayout.WEST);
         middlePanel.setLayout(new GridLayout(2, 1, 0, 5));
         
@@ -434,9 +434,9 @@ public class EventDialog extends JDialog implements WindowListener {
         		}
         	}
         });
-        
+
         emailPanel.add(emailToggle);
-        
+
         emailPanel.add(emailInputField);
         noteField.setToolTipText("Use to attach a note to your event");
         notePanel.setLayout(new BoxLayout(notePanel, BoxLayout.X_AXIS));
@@ -462,7 +462,7 @@ public class EventDialog extends JDialog implements WindowListener {
         disableElements();
         ((JSpinner.DateEditor) timeSpin.getEditor()).getFormat().applyPattern("HH:mm");
         enableEndDateCB_actionPerformed(null);
-        
+
     }
 
     void disableElements() {
@@ -477,9 +477,9 @@ public class EventDialog extends JDialog implements WindowListener {
         enableEndDateCB.setEnabled(false);
 		enableEndDateCB.setSelected(false);
 		workingDaysOnlyCB.setEnabled(false);
-		workingDaysOnlyCB.setSelected(false);		
+		workingDaysOnlyCB.setSelected(false);
     }
-    
+
     public void yearlyRepeatRB_actionPerformed(ActionEvent e) {
 		disableElements();
 		startDate.setEnabled(true);
@@ -500,7 +500,7 @@ public class EventDialog extends JDialog implements WindowListener {
         enableEndDateCB.setEnabled(true);
 		workingDaysOnlyCB.setEnabled(true);
 		startDate.getModel().setValue(
-			startCalFrame.cal.get().getCalendar().getTime());        
+			startCalFrame.cal.get().getCalendar().getTime());
     }
 
     public void dailyRepeatRB_actionPerformed(ActionEvent e) {
@@ -512,7 +512,7 @@ public class EventDialog extends JDialog implements WindowListener {
         enableEndDateCB.setEnabled(true);
 		workingDaysOnlyCB.setEnabled(true);
 		startDate.getModel().setValue(
-			startCalFrame.cal.get().getCalendar().getTime());        
+			startCalFrame.cal.get().getCalendar().getTime());
     }
 
     public void weeklyRepeatRB_actionPerformed(ActionEvent e) {
@@ -523,7 +523,7 @@ public class EventDialog extends JDialog implements WindowListener {
         lblSince.setEnabled(true);
         enableEndDateCB.setEnabled(true);
 		startDate.getModel().setValue(
-			startCalFrame.cal.get().getCalendar().getTime());        
+			startCalFrame.cal.get().getCalendar().getTime());
     }
 
     public void noRepeatRB_actionPerformed(ActionEvent e) {
@@ -557,24 +557,24 @@ public class EventDialog extends JDialog implements WindowListener {
 
     public void enableEndDateCB_actionPerformed(ActionEvent e) {
         endDate.setEnabled(enableEndDateCB.isSelected());
-        setEndDateB.setEnabled(enableEndDateCB.isSelected());        
+        setEndDateB.setEnabled(enableEndDateCB.isSelected());
     }
-    
+
     public void windowOpened( WindowEvent e ) {}
 
     public void windowClosing( WindowEvent e ) {
         CANCELLED = true;
         this.dispose();
     }
-    
+
     public void setEventDate(Date d) {
 	    eventDate = d;
 	}
-	
+
 	public Date getEventDate() {
 		return eventDate;
 	}
-	
+
     public void windowClosed( WindowEvent e ) {}
 
 	public void windowIconified( WindowEvent e ) {}

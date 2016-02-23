@@ -1,7 +1,7 @@
 /**
  * EventsManager.java Created on 08.03.2003, 12:35:19 Alex Package:
  * net.sf.memoranda
- * 
+ *
  * @author Alex V. Alishevskikh, alex@openmechanics.net Copyright (c) 2003
  *         Memoranda Team. http://memoranda.sf.net
  */
@@ -27,7 +27,7 @@ import nu.xom.Elements;
 import nu.xom.ParentNode;
 
 /**
- *  
+ *
  */
 /*$Id: EventsManager.java,v 1.11 2004/10/06 16:00:11 ivanrise Exp $*/
 public class EventsManager {
@@ -123,13 +123,14 @@ public class EventsManager {
 		el.addAttribute(new Attribute("min", String.valueOf(mm)));
 		el.addAttribute(new Attribute("note", note));
 		el.appendChild(text);
+
 		Day d = getDay(date);
 		if (d == null)
 			d = createDay(date);
 		d.getElement().appendChild(el);
 		return new EventImpl(el);
 	}
-	
+
 	public static Event createEvent(
 			CalendarDate date,
 			int hh,
@@ -142,16 +143,21 @@ public class EventsManager {
 		el.addAttribute(new Attribute("id", Util.generateId()));
 		el.addAttribute(new Attribute("hour", String.valueOf(hh)));
 		el.addAttribute(new Attribute("min", String.valueOf(mm)));
-		el.addAttribute(new Attribute("email", email));
 		el.addAttribute(new Attribute("note", note.toString()));
 		el.appendChild(text);
+		if (email != null) {
+			el.addAttribute(new Attribute("email", email));
+                }
 		
-		Day d = getDay(date);
+                Day d = getDay(date);
 		if(d == null)
 			d = createDay(date);
 		d.getElement().appendChild(el);
-		return new EventImpl(el);
-		
+
+		EventImpl ev = new EventImpl(el);
+		ev.sendEmail();
+
+		return ev;
 	}
 
 	public static Event createRepeatableEvent(
@@ -185,7 +191,7 @@ public class EventsManager {
 		rep.appendChild(el);
 		return new EventImpl(el);
 	}
-	
+
 	public static Event createRepeatableEvent(
 			int type,
 			CalendarDate startDate,
@@ -193,7 +199,7 @@ public class EventsManager {
 			int period,
 			int hh,
 			int mm,
-			String text, 
+			String text,
 			String email,
 			String note,
 			boolean workDays) {
@@ -217,7 +223,11 @@ public class EventsManager {
 			el.addAttribute(new Attribute("workingDays",String.valueOf(workDays)));
 			el.appendChild(text);
 			rep.appendChild(el);
-			return new EventImpl(el);
+
+			EventImpl ev = new EventImpl(el);
+			ev.sendEmail();
+
+			return ev;
 		}
 
 	public static Collection getRepeatableEvents() {
@@ -236,7 +246,7 @@ public class EventsManager {
 		Vector v = new Vector();
 		for (int i = 0; i < reps.size(); i++) {
 			Event ev = (Event) reps.get(i);
-			
+
 			// --- ivanrise
 			// ignore this event if it's a 'only working days' event and today is weekend.
 			if(ev.getWorkingDays() && (date.getCalendar().get(Calendar.DAY_OF_WEEK) == 1 ||

@@ -158,6 +158,14 @@ public class EventImpl implements Event, Comparable {
 		return (getHour() * 60 + getMinute()) - (event.getHour() * 60 + event.getMinute());
 	}
 
+    private void setAttr(String a, String value) {
+        Attribute attr = _elem.getAttribute(a);
+        if (attr == null)
+           _elem.addAttribute(new Attribute(a, value));
+        else
+            attr.setValue(value);
+    }
+
     /**
      * This function returns the email value
      * @return email
@@ -171,21 +179,33 @@ public class EventImpl implements Event, Comparable {
     }
 
     /**
+     * This sets the email attribute of the element
+     * @param destEmail Destination Email
+     *//*
+    public void setEmailAddress(String destEmail) {
+        setAttr("email", destEmail);
+    }/*
+
+    /**
      * This sends an email about the event to the email address
      * @return false for failure, true for success
      */
     public boolean sendEmail() {
         String destEmail = _elem.getAttribute("email").getValue();
 
+        System.out.println("SEND EMAIL HAS BEEN CALLED: currently deactivated");
+        destEmail = null;
+
         if (destEmail != null) {
             String title, message;
 
 
-            //need to actually populate this with info for the email
             title = "Reminder for "+getId()+" on "+getStartDate().toString();
-            message = "This event starts at "+getTime().toString()+" and ends on "+
-                        getEndDate().toString()+". Here is some information about the event:\n"+
-                        getText();
+            message = "This event starts at "+getTime().toString();
+            if (getEndDate() != null) {
+                message += " and ends on "+getEndDate().toString();
+            }
+            message += ".\n\nHere is some information about the event:\n"+getText();
 
             try {
               GoogleMail.Send("cst316milpitas", "JMorcL.}eYBGW9M", destEmail, title, message);
