@@ -63,11 +63,11 @@ public class EventImpl implements Event, Comparable {
     }
     
     /**
+     * Description: This method is a getter for note.
      * @return The note added to the 
      */
     @Override
 	public String getNote() {
-		// TODO Auto-generated method stub
 		return _elem.getAttribute("note").getValue().toString();
 	}
 
