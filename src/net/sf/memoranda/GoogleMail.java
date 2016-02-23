@@ -1,22 +1,4 @@
 /*
-to send an email use the following code:
-
-
-String destEmail, title, message;
-
-destEmail = "blah@blah.com";
-title = "This is a test email from cst316milpitas";
-message = "This is the body of the email."
-
-try {
-  GoogleMail.Send("cst316milpitas", "JMorcL.}eYBGW9M", destEmail, title, message);
-} catch (Exception e) {
-  e.printStackTrace();
-}
-
-*/
-
-/*
   File:				GoogleMail.java
   Author:			doraemon
   Date:				02/12/2016
