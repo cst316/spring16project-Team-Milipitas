@@ -30,7 +30,7 @@ public interface Event {
 
     String getText();
     String getNote();
-    
+
     nu.xom.Element getContent();
 
     int getRepeat();
@@ -45,6 +45,6 @@ public interface Event {
 
 	boolean getWorkingDays();
 
-    String getEmailAddress();
+    String getEmail();
     boolean sendEmail();
 }

@@ -58,8 +58,16 @@ public class EventImpl implements Event, Comparable {
         return _elem.getValue();
     }
 
+    /**
+     * Description: This method is a getter for the email.
+     * @return the email or null if there is no email
+     */
     public String getEmail() {
-    	return _elem.getAttribute("email").getValue().toString();
+        try {
+            return new String(_elem.getAttribute("email").getValue().toString());
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
@@ -167,32 +175,11 @@ public class EventImpl implements Event, Comparable {
     }
 
     /**
-     * This function returns the email value
-     * @return email
-     */
-    public String getEmailAddress() {
-        try {
-            return new String(_elem.getAttribute("email").getValue());
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    /**
-     * This sets the email attribute of the element
-     * @param destEmail Destination Email
-     *//*
-    public void setEmailAddress(String destEmail) {
-        setAttr("email", destEmail);
-    }/*
-
-    /**
      * This sends an email about the event to the email address
      * @return false for failure, true for success
      */
     public boolean sendEmail() {
-        String destEmail = getEmailAddress();
-        //System.out.println("TEST");
+        String destEmail = getEmail();
 
         //System.out.println("SEND EMAIL HAS BEEN CALLED: currently deactivated");
         //destEmail = null;

@@ -238,7 +238,7 @@ public class EventsPanel extends JPanel {
         ((SpinnerDateModel)dlg.timeSpin.getModel()).setEnd(CalendarDate.tomorrow().getDate());*/
         dlg.textField.setText(ev.getText());
         dlg.noteField.setText(ev.getNote());
-        dlg.emailInputField.setText(ev.getEmailAddress());
+        dlg.emailInputField.setText(ev.getEmail());
         int rep = ev.getRepeat();
         if (rep > 0) {
             dlg.startDate.getModel().setValue(ev.getStartDate().getDate());
