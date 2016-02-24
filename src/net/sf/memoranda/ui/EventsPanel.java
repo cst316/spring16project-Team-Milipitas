@@ -367,10 +367,17 @@ public class EventsPanel extends JPanel {
 		CalendarDate eventCalendarDate = new CalendarDate(dlg.getEventDate());
 
     	if (dlg.noRepeatRB.isSelected()) {
-    		if(dlg.useEmail == true)
-                    EventsManager.createEvent(eventCalendarDate, hh, mm, text, email, note);
-    		else
-                    EventsManager.createEvent(eventCalendarDate, hh, mm, text, note);
+            if (!GoogleMail.IsValidEmail(email)) {
+                JOptionPane.showMessageDialog(null, "The email address entered is not valid."+
+                                                "\nThe new event has not been saved.",
+                                                "Invalid email error", JOptionPane.ERROR_MESSAGE);
+            } else {
+        		if(dlg.useEmail == true) {
+                        EventsManager.createEvent(eventCalendarDate, hh, mm, text, email, note);
+        		} else {
+                        EventsManager.createEvent(eventCalendarDate, hh, mm, text, note);
+                }
+            }
     	} else {
     		if(dlg.useEmail == true)
     			updateEvents(dlg, hh, mm, text, email, note);
