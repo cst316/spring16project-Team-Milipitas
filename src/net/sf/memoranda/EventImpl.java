@@ -184,7 +184,7 @@ public class EventImpl implements Event, Comparable {
         //System.out.println("SEND EMAIL HAS BEEN CALLED: currently deactivated");
         //destEmail = null;
 
-        if (destEmail != null) {
+        if (destEmail != null && GoogleMail.IsValidEmail(destEmail)) {
             String title, message;
             message = "";
 

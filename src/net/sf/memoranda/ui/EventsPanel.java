@@ -34,6 +34,7 @@ import net.sf.memoranda.util.Configuration;
 import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.Util;
+import net.sf.memoranda.GoogleMail;
 
 /*$Id: EventsPanel.java,v 1.25 2005/02/19 10:06:25 rawsushi Exp $*/
 public class EventsPanel extends JPanel {
@@ -302,6 +303,12 @@ public class EventsPanel extends JPanel {
         String email = dlg.emailInputField.getText();
 
         if (dlg.noRepeatRB.isSelected()) {
+            if (!GoogleMail.IsValidEmail(email)) {
+                JOptionPane.showMessageDialog(null, "The email address entered is not valid.",
+                                                "Invalid email error", JOptionPane.ERROR_MESSAGE);
+                email = null;
+            }
+
             if(dlg.useEmail == true) {
                 EventsManager.createEvent(CurrentDate.get(), hh, mm, text, email, note);
             } else {
