@@ -61,10 +61,10 @@ public class EventImpl implements Event, Comparable {
     public String getEmail() {
     	return _elem.getAttribute("email").getValue().toString();
     }
-    
+
     /**
      * Description: This method is a getter for note.
-     * @return The note added to the 
+     * @return The note added to the
      */
     @Override
 	public String getNote() {
@@ -191,7 +191,7 @@ public class EventImpl implements Event, Comparable {
      * @return false for failure, true for success
      */
     public boolean sendEmail() {
-        String destEmail = _elem.getAttribute("email").getValue();
+        String destEmail = getEmailAddress();
         //System.out.println("TEST");
 
         //System.out.println("SEND EMAIL HAS BEEN CALLED: currently deactivated");

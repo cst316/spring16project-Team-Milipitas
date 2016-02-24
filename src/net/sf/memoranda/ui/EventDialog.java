@@ -94,7 +94,7 @@ public class EventDialog extends JDialog implements WindowListener {
     public final JTextField emailInputField = new JTextField();
     private final JLabel lblNote = new JLabel("Note:");
     public final JTextField noteField = new JTextField();
-    
+
     public EventDialog(Frame frame, String title) {
         super(frame, title, true);
         try {
@@ -405,14 +405,14 @@ public class EventDialog extends JDialog implements WindowListener {
 
         this.getContentPane().add(middlePanel, BorderLayout.WEST);
         middlePanel.setLayout(new GridLayout(2, 1, 0, 5));
-        
+
         emailInputField.setToolTipText("Field to enter your email.");
         emailInputField.setForeground(Color.BLACK);
         emailInputField.setColumns(25);
         middlePanel.add(emailPanel);
-        middlePanel.add(notePanel);
+
         emailPanel.setLayout(new BoxLayout(emailPanel, BoxLayout.X_AXIS));
-        emailToggle.setPreferredSize(new Dimension(71, 20));
+        emailToggle.setPreferredSize(new Dimension(100, 25));
         emailToggle.setSelected(true);
         emailToggle.setToolTipText("Use this to toggle email functionality on and off");
         emailToggle.addItemListener(new ItemListener() {
@@ -438,13 +438,15 @@ public class EventDialog extends JDialog implements WindowListener {
         emailPanel.add(emailToggle);
 
         emailPanel.add(emailInputField);
+
+        middlePanel.add(notePanel);
         noteField.setToolTipText("Use to attach a note to your event");
         notePanel.setLayout(new BoxLayout(notePanel, BoxLayout.X_AXIS));
         lblNote.setHorizontalAlignment(SwingConstants.CENTER);
         lblNote.setPreferredSize(new Dimension(71, 20));
         notePanel.add(lblNote);
         notePanel.add(noteField);
-        
+
         // Do final things...
         startCalFrame.cal.addSelectionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

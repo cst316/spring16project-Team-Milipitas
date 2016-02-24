@@ -237,7 +237,6 @@ public class EventsPanel extends JPanel {
         ((SpinnerDateModel)dlg.timeSpin.getModel()).setStart(CalendarDate.today().getDate());
         ((SpinnerDateModel)dlg.timeSpin.getModel()).setEnd(CalendarDate.tomorrow().getDate());*/
         dlg.textField.setText(ev.getText());
-        System.out.println(ev.getNote());
         dlg.noteField.setText(ev.getNote());
         dlg.emailInputField.setText(ev.getEmailAddress());
         int rep = ev.getRepeat();
@@ -303,18 +302,19 @@ public class EventsPanel extends JPanel {
         String email = dlg.emailInputField.getText();
 
         if (dlg.noRepeatRB.isSelected()) {
-            if(dlg.useEmail == true)
-            EventsManager.createEvent(CurrentDate.get(), hh, mm, text, email);
-            else
+            if(dlg.useEmail == true) {
+                EventsManager.createEvent(CurrentDate.get(), hh, mm, text, email, note);
+            } else {
                 EventsManager.createEvent(CurrentDate.get(), hh, mm, text, note);
-                EventsManager.createEvent(CurrentDate.get(), hh, mm, text);
+            }
         } else {
-            if(dlg.useEmail == true)
-                updateEvents(dlg, hh, mm, text, email);
-            else
+            if(dlg.useEmail == true) {
+                updateEvents(dlg, hh, mm, text, email, note);
+            } else {
                 updateEvents(dlg,hh,mm,text, note);
-	}    
-	saveEvents();
+            }
+	   }
+	   saveEvents();
     }
 
     void newEventB_actionPerformed(ActionEvent e) {
@@ -356,7 +356,7 @@ public class EventsPanel extends JPanel {
     	String text = dlg.textField.getText();
 		String email = dlg.emailInputField.getText();
 		String note = dlg.noteField.getText();
-		
+
 		CalendarDate eventCalendarDate = new CalendarDate(dlg.getEventDate());
 
     	if (dlg.noRepeatRB.isSelected()) {
@@ -412,7 +412,7 @@ public class EventsPanel extends JPanel {
         }
         EventsManager.createRepeatableEvent(rtype, sd, ed, period, hh, mm, text, note, dlg.workingDaysOnlyCB.isSelected());
     }
-    
+
     private void updateEvents(EventDialog dlg, int hh, int mm,
     		String text, String email, String note) {
     	int rtype;

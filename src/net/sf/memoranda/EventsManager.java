@@ -138,18 +138,18 @@ public class EventsManager {
 			String text,
 			String email,
 			String note) {
-		
+
 		Element el = new Element("event");
 		el.addAttribute(new Attribute("id", Util.generateId()));
 		el.addAttribute(new Attribute("hour", String.valueOf(hh)));
 		el.addAttribute(new Attribute("min", String.valueOf(mm)));
 		el.addAttribute(new Attribute("note", note.toString()));
-		el.appendChild(text);
 		if (email != null) {
 			el.addAttribute(new Attribute("email", email));
-                }
-		
-                Day d = getDay(date);
+    }
+    el.appendChild(text);
+
+    Day d = getDay(date);
 		if(d == null)
 			d = createDay(date);
 		d.getElement().appendChild(el);
@@ -214,7 +214,9 @@ public class EventsManager {
 			el.addAttribute(new Attribute("hour", String.valueOf(hh)));
 			el.addAttribute(new Attribute("min", String.valueOf(mm)));
 			el.addAttribute(new Attribute("startDate", startDate.toString()));
-			el.addAttribute(new Attribute("email", email));
+			if (email != null) {
+				el.addAttribute(new Attribute("email", email));
+			}
 			el.addAttribute(new Attribute("note", note.toString()));
 			if (endDate != null)
 				el.addAttribute(new Attribute("endDate", endDate.toString()));
