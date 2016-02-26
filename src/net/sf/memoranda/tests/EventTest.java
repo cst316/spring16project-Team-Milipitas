@@ -38,7 +38,7 @@ public class EventTest {
 																		"cst316milpitas@gmail.com",
 																		"");
 		e2 = EventsManager.createEvent(new CalendarDate(11,2,2016),
-																		12,
+																		9,
 																		0,
 																		"Test Event 2: Bad Email",
 																		"@@@@@",
@@ -88,81 +88,152 @@ public class EventTest {
 
 	@Test
 	public void getIdTest() {
+		String temp = e1.getId();
+		assertTrue(e1.getId() == temp);
 
+		temp = e2.getId();
+		assertTrue(e2.getId() == temp);
+
+		assertFalse(e3.getId() == temp);
+
+		assertFalse(e4.getId() == temp);
+
+		temp = e5.getId();
+		assertTrue(e5.getId() == temp);
+
+		temp = e6.getId();
+		assertTrue(e6.getId() == temp);
 	}
 
 	@Test
   public void getHourTest() {
+  	assertTrue(e1.getHour() == 12);
+  	assertTrue(e2.getHour() == 9);
+  	assertFalse(e3.getHour() == 9);
 
+  	assertFalse(e4.getHour() == 10);
+  	assertTrue(e5.getHour() == 10);
+  	assertTrue(e6.getHour() == 18);
   }
 
   @Test
   public void getMinuteTest() {
+  	assertTrue(e1.getMinute() == 0);
+  	assertFalse(e2.getMinute() == 10);
+  	assertTrue(e3.getMinute() == 0);
 
+  	assertFalse(e4.getMinute() == 30);
+  	assertTrue(e5.getMinute() == 30);
+  	assertTrue(e6.getMinute() == 37);
   }
 
   @Test
   public void getTextTest() {
+  	assertTrue(e1.getText().equals("Test Event 1: Good Email"));
+  	assertTrue(e2.getText().equals("Test Event 2: Bad Email"));
+  	assertFalse(e3.getText().equals(""));
 
+  	assertTrue(e4.getText().equals("Test Event 4: Repeat Daily"));
+  	assertFalse(e5.getText().equals("Test Event 4: Repeat Daily"));
+  	assertTrue(e6.getText().equals("Test Event 6: Repeat Weekly"));
   }
 
   @Test
   public void getNoteTest() {
+  	assertTrue(e1.getNote().equals(""));
+  	assertFalse(e2.getNote().equals("This is a sample note."));
+  	assertTrue(e3.getNote().equals("This is a sample note."));
 
-  }
-
-  @Test
-	public void getContentTest() {
-
+  	assertTrue(e4.getNote().equals(""));
+  	assertFalse(e5.getNote().equals("Another Sample Note"));
+  	assertTrue(e6.getNote().equals("Another Sample Note"));
   }
 
   @Test
   public void getRepeatTest() {
+  	assertTrue(e1.getRepeat() == EventsManager.NO_REPEAT);
+  	assertFalse(e2.getRepeat() == EventsManager.REPEAT_DAILY);
+  	assertFalse(e3.getRepeat() == EventsManager.REPEAT_WEEKLY);
 
+  	assertTrue(e4.getRepeat() == EventsManager.REPEAT_DAILY);
+  	assertTrue(e5.getRepeat() == EventsManager.REPEAT_YEARLY);
+  	assertFalse(e6.getRepeat() == EventsManager.REPEAT_YEARLY);
   }
 
   @Test
   public void getStartDateTest() {
+  	assertTrue(e1.getStartDate() == null);
+  	assertTrue(e2.getStartDate() == null);
+  	assertFalse(new CalendarDate(5,1,2016).equals(e3.getStartDate()));
 
+  	assertFalse(e4.getStartDate() == null);
+  	assertTrue(new CalendarDate(5,1,2016).equals(e5.getStartDate()));
+  	assertTrue(new CalendarDate(5,1,2016).equals(e6.getStartDate()));
   }
 
   @Test
   public void getEndDateTest() {
+  	assertTrue(e1.getEndDate() == null);
+  	assertTrue(e2.getEndDate() == null);
+  	assertFalse(new CalendarDate(5,1,2016).equals(e3.getEndDate()));
 
+  	assertFalse(e4.getEndDate() == null);
+  	assertTrue(new CalendarDate(5,1,2020).equals(e5.getEndDate()));
+  	assertTrue(new CalendarDate(1,1,2018).equals(e6.getEndDate()));
   }
 
   @Test
   public void getPeriodTest() {
+  	assertTrue(e1.getPeriod() == 0);
+  	assertTrue(e2.getPeriod() == 0);
+  	assertFalse(e3.getPeriod() == 1);
 
+  	assertTrue(e4.getPeriod() == 0);
+  	assertFalse(e5.getPeriod() == 2);
+  	assertTrue(e6.getPeriod() == 2);
   }
 
   @Test
   public void isRepeatableTest() {
+  	assertFalse(e1.isRepeatable());
+  	assertFalse(e2.isRepeatable());
+  	assertFalse(e3.isRepeatable());
 
-  }
-
-  @Test
-  public void getTimeTest() {
-
-  }
-
-  @Test
-  public void getTimeStringTest() {
-
+  	assertTrue(e4.isRepeatable());
+  	assertTrue(e5.isRepeatable());
+  	assertTrue(e6.isRepeatable());
   }
 
   @Test
 	public void getWorkingDaysTest() {
+		assertFalse(e1.getWorkingDays());
+  	assertFalse(e2.getWorkingDays());
+  	assertFalse(e3.getWorkingDays());
 
+  	assertFalse(e4.getWorkingDays());
+  	assertTrue(e5.getWorkingDays());
+  	assertFalse(e6.getWorkingDays());
 	}
 
 	@Test
   public void getEmailTest() {
+  	assertTrue("cst316milpitas@gmail.com".equals(e1.getEmail()));
+  	assertFalse("cst316milpitas@gmail.com".equals(e2.getEmail()));
+  	assertTrue(e3.getEmail() == null);
 
+  	assertTrue(e4.getEmail() == null);
+  	assertTrue("cscscscs..com".equals(e5.getEmail()));
+  	assertTrue(e6.getEmail() == null);
   }
 
   @Test
   public void sendEmailTest() {
+  	assertTrue(e1.sendEmail());
+  	assertFalse(e2.sendEmail());
+  	assertFalse(e3.sendEmail());
 
+  	assertFalse(e4.sendEmail());
+  	assertFalse(e5.sendEmail());
+  	assertFalse(e6.sendEmail());
   }
 }
