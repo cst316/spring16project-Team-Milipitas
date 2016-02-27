@@ -445,6 +445,7 @@ public class TaskPanel extends JPanel {
     }
 
     void editTaskB_actionPerformed(ActionEvent e) {
+    	System.out.println("EditTaskB_ started"); //nateDebug.
         Task t =
             CurrentProject.getTaskList().getTask(
                 taskTable.getModel().getValueAt(taskTable.getSelectedRow(), TaskTable.TASK_ID).toString());
@@ -454,6 +455,9 @@ public class TaskPanel extends JPanel {
         dlg.setLocation((frmSize.width - dlg.getSize().width) / 2 + loc.x, (frmSize.height - dlg.getSize().height) / 2 + loc.y);
         dlg.todoField.setText(t.getText());
         dlg.descriptionField.setText(t.getDescription());
+        System.out.println("Ran pre note"); //nateDebug.
+        dlg.noteField.setText(t.getNote());
+        System.out.println("Ran post note"); //nateDebug.
         dlg.startDate.getModel().setValue(t.getStartDate().getDate());
         dlg.endDate.getModel().setValue(t.getEndDate().getDate());
         dlg.priorityCB.setSelectedIndex(t.getPriority());
@@ -483,7 +487,7 @@ public class TaskPanel extends JPanel {
         t.setEndDate(ed);
         t.setText(dlg.todoField.getText());
         t.setDescription(dlg.descriptionField.getText());
-        
+        t.setNote(dlg.noteField.getText());
         t.setPriority(dlg.priorityCB.getSelectedIndex());
         if (dlg.taskColor.getSelectedIndex() == 10) {
             t.setColor(-1);
@@ -523,7 +527,7 @@ public class TaskPanel extends JPanel {
  			ed = null;
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
 		//XXX Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
-		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),null);
+		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(), effort, dlg.descriptionField.getText(), dlg.noteField.getText(), null);
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
         if (dlg.taskColor.getSelectedIndex() == 10) {
             newTask.setColor(-1);
@@ -569,7 +573,7 @@ public class TaskPanel extends JPanel {
  		else
  			ed = null;
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
-		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
+		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(), dlg.noteField.getText(), parentTaskId);
         newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 

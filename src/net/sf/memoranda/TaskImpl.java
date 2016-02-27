@@ -238,19 +238,28 @@ public class TaskImpl implements Task, Comparable {
      * @see net.sf.memoranda.Task#getNote()
      */
     public String getNote() {
-    	return _element.getAttributeValue("note").toString();
+    	Element note = _element.getFirstChildElement("note");
+    	if (note == null) {
+    		return null;
+    	}
+    	else {
+       		return note.getValue();
+    	}
     }
     
     /**
      * @see net.sf.memoranda.Task#setNote(String)
      */
     public void setNote(String n) {
-    	Attribute aNote = _element.getAttribute("note");
-    	if(aNote == null) {
-    		_element.addAttribute(new Attribute("note", n));
-    	} else {
-    		_element.removeAttribute(aNote);
-    		_element.addAttribute(new Attribute("note", n));
+    	Element note = _element.getFirstChildElement("description");
+    	if (note == null) {
+        	note = new Element("note");
+            note.appendChild(n);
+            _element.appendChild(note);
+    	}
+    	else {
+            note.removeChildren();
+            note.appendChild(n);
     	}
     }
 
