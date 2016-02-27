@@ -251,7 +251,7 @@ public class TaskImpl implements Task, Comparable {
      * @see net.sf.memoranda.Task#setNote(String)
      */
     public void setNote(String n) {
-    	Element note = _element.getFirstChildElement("description");
+    	Element note = _element.getFirstChildElement("note");
     	if (note == null) {
         	note = new Element("note");
             note.appendChild(n);
