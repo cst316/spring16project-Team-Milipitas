@@ -483,6 +483,7 @@ public class TaskPanel extends JPanel {
         t.setEndDate(ed);
         t.setText(dlg.todoField.getText());
         t.setDescription(dlg.descriptionField.getText());
+        
         t.setPriority(dlg.priorityCB.getSelectedIndex());
         if (dlg.taskColor.getSelectedIndex() == 10) {
             t.setColor(-1);
