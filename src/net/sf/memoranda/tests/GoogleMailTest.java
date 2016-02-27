@@ -1,3 +1,11 @@
+/*
+  File:       GoogleMailTest.java
+  Author:     rbaker11
+  Date:       02/27/2016
+
+  Description:    Tests the GoogleMail's IsValidEmail() method.
+*/
+
 package net.sf.memoranda.tests;
 
 import static org.junit.Assert.*;
@@ -10,24 +18,49 @@ import org.junit.Test;
 
 import net.sf.memoranda.GoogleMail;
 
+
+/**
+  Class:      GoogleMailTest
+
+  Description:    Tests the GoogleMail's IsValidEmail() method.
+*/
 public class GoogleMailTest {
+  /**
+   * Sets up before making the EventTest class
+   * @throws Exception problem with setting up the class
+   */
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
   }
 
+  /**
+   * Tears down the after taking down the EventTest class
+   * @throws Exception problem with tearing down the class
+   */
   @AfterClass
   public static void tearDownAfterClass() throws Exception {
   }
 
+  /**
+   * Sets up the EventTest class
+   * @throws Exception if there is a problem setting up
+   */
   @Before
   public void setUp() throws Exception {
 
   }
 
+  /**
+   * Tears down the EventTest class
+   * @throws Exception if there is a problem tearing down the class
+   */
   @After
   public void tearDown() throws Exception {
   }
 
+  /**
+   * Tests the IsValidEmail() method of GoogleMail.
+   */
   @Test
   public void testValidEmails() {
     assertTrue(GoogleMail.IsValidEmail("me@example.com"));
@@ -38,6 +71,9 @@ public class GoogleMailTest {
     assertTrue(GoogleMail.IsValidEmail("!#$%&'+-/=.?^`{|}~@[1.0.0.127]"));
   }
 
+  /**
+   * Tests the IsValidEmail() method of GoogleMail.
+   */
   @Test
   public void testInvalidEmails() {
     assertFalse(GoogleMail.IsValidEmail("me@"));

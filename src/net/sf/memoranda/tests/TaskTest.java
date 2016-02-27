@@ -1,3 +1,11 @@
+/*
+  File:       TaskTest.java
+  Author:     rbaker11
+  Date:       02/27/2016
+
+  Description:    Tests the Task getColor() and setColor() methods.
+*/
+
 package net.sf.memoranda.tests;
 
 import static org.junit.Assert.*;
@@ -16,18 +24,36 @@ import net.sf.memoranda.util.Util;
 import nu.xom.Attribute;
 import nu.xom.Element;
 
+
+/**
+  Class:      TaskTest
+
+  Description:    Tests the Task getColor() and setColor() methods.
+*/
 public class TaskTest {
   private Task t1;
   private Task t2;
 
+  /**
+   * Sets up before making the EventTest class
+   * @throws Exception problem with setting up the class
+   */
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
   }
 
+  /**
+   * Tears down the after taking down the EventTest class
+   * @throws Exception problem with tearing down the class
+   */
   @AfterClass
   public static void tearDownAfterClass() throws Exception {
   }
 
+  /**
+   * Sets up the EventTest class
+   * @throws Exception if there is a problem setting up
+   */
   @Before
   public void setUp() throws Exception {
     t1 = createTask(new CalendarDate(5,1,2016),
@@ -47,25 +73,17 @@ public class TaskTest {
                     null);
   }
 
+  /**
+   * Tears down the EventTest class
+   * @throws Exception if there is a problem tearing down the class
+   */
   @After
   public void tearDown() throws Exception {
   }
 
-  /*
-  Color[] colors =
-        {
-            Color.YELLOW,
-            Color.ORANGE,
-            Color.RED,
-            Color.BLUE,
-            Color.GREEN,
-            Color.CYAN,
-            Color.MAGENTA,
-            Color.BLACK,
-            Color.WHITE,
-            Color.PINK };
-  */
-
+  /**
+   * Tests the getColor() and setColor() methods in Task.
+   */
   @Test
   public void getsetColorTest() {
     t1.setColor(9);
