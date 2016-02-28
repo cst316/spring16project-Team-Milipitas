@@ -58,7 +58,8 @@ public class EventDialog extends JDialog implements WindowListener {
     private final JPanel notePanel = new JPanel();
     GridBagConstraints gbc;
     JLabel lblTime = new JLabel();
-    public JSpinner timeSpin = new JSpinner(new SpinnerDateModel(new Date(), null, null, Calendar.MINUTE));
+    public JSpinner timeSpin = new JSpinner(
+    		new SpinnerDateModel(new Date(), null, null, Calendar.MINUTE));
     JLabel lblText = new JLabel();
     public JTextField textField = new JTextField();
     TitledBorder repeatBorder;
