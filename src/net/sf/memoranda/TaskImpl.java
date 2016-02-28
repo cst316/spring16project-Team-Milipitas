@@ -233,6 +233,35 @@ public class TaskImpl implements Task, Comparable {
         _element.getFirstChildElement("text").removeChildren();
         _element.getFirstChildElement("text").appendChild(s);
     }
+    
+    /**
+     * @see net.sf.memoranda.Task#getNote()
+     */
+    public String getNote() {
+    	Element note = _element.getFirstChildElement("note");
+    	if (note == null) {
+    		return null;
+    	}
+    	else {
+       		return note.getValue();
+    	}
+    }
+    
+    /**
+     * @see net.sf.memoranda.Task#setNote(String)
+     */
+    public void setNote(String n) {
+    	Element note = _element.getFirstChildElement("note");
+    	if (note == null) {
+        	note = new Element("note");
+            note.appendChild(n);
+            _element.appendChild(note);
+    	}
+    	else {
+            note.removeChildren();
+            note.appendChild(n);
+    	}
+    }
 
     /**
      * @see net.sf.memoranda.Task#freeze()

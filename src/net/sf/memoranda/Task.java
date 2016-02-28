@@ -60,7 +60,18 @@ public interface Task {
 
     String getText();
     void setText(String s);
-
+    
+    /**
+     * Getter for the note value.
+     * @return The stored note value.
+     */
+    String getNote();
+    
+    /**
+     * Setter for the set value.
+     * @param n The note to be added.
+     */
+    void setNote(String n);
     /*Collection getDependsFrom();
 
     void addDependsFrom(Task task);
