@@ -7,12 +7,12 @@ import org.junit.Test;
 //import nu.xom.Element;
 
 public class EventImplTest {
-
-	/*@Test
-	public void test() {
-		fail("Not yet implemented");
-	}*/
 	
+	/**
+	 * Method: testGetNote
+	 * 
+	 * Description: Tests getNote in EventImpl
+	 */
 	@Test
 	public void testGetNote() {
 		nu.xom.Element e = new nu.xom.Element("testNoteElement");
@@ -21,6 +21,11 @@ public class EventImplTest {
 		assertEquals(el.getNote(), "This is a note");
 	}
 
+	/**
+	 * Method: testGetNote
+	 * 
+	 * Description: Tests getEmail in EventImpl.
+	 */
 	@Test
 	public void testGetEmail() {
 		nu.xom.Element e = new nu.xom.Element("testEmailElement");
