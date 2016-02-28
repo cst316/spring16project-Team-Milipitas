@@ -15,6 +15,8 @@ import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.Local;
 import nu.xom.Attribute;
 import nu.xom.Element;
+import javax.mail.internet.AddressException;
+import javax.mail.MessagingException;
 
 /**
  *
@@ -184,7 +186,7 @@ public class EventImpl implements Event, Comparable {
         //System.out.println("SEND EMAIL HAS BEEN CALLED: currently deactivated");
         //destEmail = null;
 
-        if (destEmail != null) {
+        if (destEmail != null && GoogleMail.IsValidEmail(destEmail)) {
             String title, message;
             message = "";
 
@@ -205,11 +207,16 @@ public class EventImpl implements Event, Comparable {
             }
 
             try {
-              GoogleMail.Send("cst316milpitas", "JMorcL.}eYBGW9M", destEmail, title, message);
+                GoogleMail.Send("cst316milpitas", "JMorcL.}eYBGW9M", destEmail, title, message);
 
-              return true;
+                return true;
+            } catch (AddressException e) {
+                System.out.println("Invalid Address: "+destEmail);
+                System.out.println("Error occured at position: "+e.getPos());
+            } catch (MessagingException e) {
+                System.out.println("Error when sending email: "+e.getCause());
             } catch (Exception e) {
-              e.printStackTrace();
+                e.printStackTrace();
             }
         }
 

@@ -39,6 +39,7 @@ import javax.swing.JCheckBox;
 import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.Local;
+import javax.swing.BoxLayout;
 
 /*$Id: TaskDialog.java,v 1.25 2005/12/01 08:12:26 alexeya Exp $*/
 public class TaskDialog extends JDialog {
@@ -52,7 +53,7 @@ public class TaskDialog extends JDialog {
     JPanel dialogTitlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JLabel header = new JLabel();
     public boolean CANCELLED = true;
-    JPanel jPanel8 = new JPanel(new GridBagLayout());
+    JPanel jPanel8 = new JPanel();
     Border border3;
     Border border4;
 //    Border border5;
@@ -63,6 +64,7 @@ public class TaskDialog extends JDialog {
     // added by rawsushi
     JTextField effortField = new JTextField();
     JTextArea descriptionField = new JTextArea();
+    final JTextField noteField = new JTextField();
     JScrollPane descriptionScrollPane = new JScrollPane(descriptionField);
 
 //    Border border7;
@@ -125,9 +127,12 @@ public class TaskDialog extends JDialog {
 	CalendarDate startDateMax = CurrentProject.get().getEndDate();
 	CalendarDate endDateMin = startDateMin;
 	CalendarDate endDateMax = startDateMax;
+	private final JLabel lblNote = new JLabel("Note");
+	private final JLabel lblTitle = new JLabel("Title");
 
     public TaskDialog(Frame frame, String title) {
         super(frame, title, true);
+        noteField.setColumns(10);
         try {
             jbInit();
             pack();
@@ -139,7 +144,7 @@ public class TaskDialog extends JDialog {
 
     void jbInit() throws Exception {
 	this.setResizable(false);
-	this.setSize(new Dimension(430,300));
+	this.setSize(new Dimension(548, 460));
         border1 = BorderFactory.createEmptyBorder(5, 5, 5, 5);
         border2 = BorderFactory.createEtchedBorder(Color.white,
             new Color(142, 142, 142));
@@ -195,16 +200,10 @@ public class TaskDialog extends JDialog {
         header.setText(Local.getString("To do"));
         header.setIcon(new ImageIcon(net.sf.memoranda.ui.TaskDialog.class.getResource(
             "resources/icons/task48.png")));
-
-        GridBagLayout gbLayout = (GridBagLayout) jPanel8.getLayout();
-        jPanel8.setBorder(border3);
-
-        todoField.setBorder(border8);
-        todoField.setPreferredSize(new Dimension(375, 24));
         GridBagConstraints gbCon = new GridBagConstraints();
         gbCon.gridwidth = GridBagConstraints.REMAINDER;
         gbCon.weighty = 1;
-        gbLayout.setConstraints(todoField,gbCon);
+       // gbLayout.setConstraints(todoField,gbCon);
 
         jLabelDescription.setMaximumSize(new Dimension(100, 16));
         jLabelDescription.setMinimumSize(new Dimension(60, 16));
@@ -213,7 +212,7 @@ public class TaskDialog extends JDialog {
         gbCon.gridwidth = GridBagConstraints.REMAINDER;
         gbCon.weighty = 1;
         gbCon.anchor = GridBagConstraints.WEST;
-        gbLayout.setConstraints(jLabelDescription,gbCon);
+        //gbLayout.setConstraints(jLabelDescription,gbCon);
 
         descriptionField.setBorder(border8);
         descriptionField.setPreferredSize(new Dimension(375, 387)); // 3 additional pixels from 384 so that the last line is not cut off
@@ -223,7 +222,7 @@ public class TaskDialog extends JDialog {
         gbCon.gridwidth = GridBagConstraints.REMAINDER;
         gbCon.weighty = 3;
         descriptionScrollPane.setPreferredSize(new Dimension(375,96));
-        gbLayout.setConstraints(descriptionScrollPane,gbCon);
+        //gbLayout.setConstraints(descriptionScrollPane,gbCon);
 
         jLabelEffort.setMaximumSize(new Dimension(100, 16));
         jLabelEffort.setMinimumSize(new Dimension(60, 16));
@@ -357,9 +356,22 @@ public class TaskDialog extends JDialog {
         this.getContentPane().add(dialogTitlePanel, BorderLayout.NORTH);
         dialogTitlePanel.add(header, null);
         areaPanel.add(jPanel8, BorderLayout.NORTH);
-        jPanel8.add(todoField, null);
+        jPanel8.setLayout(new BoxLayout(jPanel8, BoxLayout.Y_AXIS));
+        
+        jPanel8.add(lblTitle);
+        
+                //GridBagLayout gbLayout = (GridBagLayout) jPanel8.getLayout();
+               // jPanel8.setBorder(border3);
+        
+                todoField.setBorder(border8);
+                todoField.setPreferredSize(new Dimension(375, 24));
+                jPanel8.add(todoField);
         jPanel8.add(jLabelDescription);
-        jPanel8.add(descriptionScrollPane, null);
+        jPanel8.add(descriptionScrollPane);
+        
+        jPanel8.add(lblNote);
+        
+        jPanel8.add(noteField);
         areaPanel.add(jPanel2, BorderLayout.CENTER);
         jPanel2.add(jPanel6, null);
         jPanel6.add(jLabel6, null);
