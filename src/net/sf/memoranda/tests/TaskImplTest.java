@@ -7,12 +7,20 @@ import org.junit.Test;
 import net.sf.memoranda.Project;
 
 public class TaskImplTest {
-
-	/*@Test
-	public void test() {
-		fail("Not yet implemented");
-	}*/
 	
+	/**
+	 * Method: testGetNote
+	 * 
+	 * Description: This method tests the getNote() functionality of TaskImpl.
+	 * 
+	 * Additional information and analysis: 
+	 * Because of the way Tasks are implemented in the program itself, it is
+	 * difficult to create a Task (TaskImpl) purely individually. 
+	 * Based on what I saw in the programs it is hard to implement a task without
+	 * actually having that task written to file and saved.  So what I did was use
+	 * the built in functionality with a null task list to assign and use a TaskImpl
+	 * object to test it's getNote();
+	 */
 	@Test
 	public void TestGetNote() {
 		/*el.addAttribute(new nu.xom.Attribute("note", note));
@@ -26,6 +34,15 @@ public class TaskImplTest {
 		assertEquals(ti.getNote(), note);
 	}
 	
+	/**
+	 * Method: TestSetNote
+	 * 
+	 * Description: Tests to ensure setNote within TaskImpl works properly.
+	 * 
+	 * Additional Information: setNote is used in getNote but it does not explore
+	 * both paths of 1) note already exists and 2) note does not exist in the list of children
+	 * in Element.
+	 */
 	@Test
 	public void TestSetNote() {
 		
@@ -51,8 +68,8 @@ public class TaskImplTest {
 		ti.setNote(note2);
 		assertEquals(ti.getNote(), note2);
 		
-		ti = null;
-		el = null;
+		ti = null; //marked for garbage collection.
+		el = null; //marked for garbage collection.
 		/****End Second *****/
 	}
 	
