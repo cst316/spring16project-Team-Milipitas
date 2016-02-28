@@ -14,8 +14,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Class: AllTests
- * @author Nathan
- * 
+ * @author nnmeyer1
  * Description: Test class to run all tests.
  *
  */
