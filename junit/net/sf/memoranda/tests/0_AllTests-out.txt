@@ -1,0 +1,4 @@
+Loaded from C:\Users\Nathan\.memoranda\memoranda.properties
+[DEBUG] Open events manager: C:\Users\Nathan\.memoranda\.events
+Default locale: English (United States)
+* DEBUG: Locales are disabled or not found: messages_en.properties
