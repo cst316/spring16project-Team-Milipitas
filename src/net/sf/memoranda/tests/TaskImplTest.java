@@ -22,7 +22,7 @@ public class TaskImplTest {
 	 * object to test it's getNote();
 	 */
 	@Test
-	public void TestGetNote() {
+	public void testGetNote() {
 		/*el.addAttribute(new nu.xom.Attribute("note", note));
 		net.sf.memoranda.TaskImpl ti = new net.sf.memoranda.TaskImpl(el, null);
 		assertEquals(ti.getNote(), note);*/
@@ -44,7 +44,7 @@ public class TaskImplTest {
 	 * in Element.
 	 */
 	@Test
-	public void TestSetNote() {
+	public void testSetNote() {
 		
 		//First tests when note does not already exists.
 		/****Begin First *****/
